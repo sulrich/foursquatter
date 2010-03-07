@@ -1,0 +1,5 @@
+esquare_user = "your_email@example.com"
+esquare_pass = "secretpassword"
+esquare_host = "api.foursquare.com:80"
+esquare_agent = "foursquatter 0.01"
+esquare_vfile = "/path_to_home/squatter-venues.txt"
