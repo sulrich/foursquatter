@@ -1,0 +1,75 @@
+* overview
+
+warning - this is an anti-social script.  i'm not recommending its use, but i
+can see the utility.  if you must have the mayorship of your local
+bar/coffeeshop, etc. you might find it useful.  this exercises a very little
+bit of the foursquare API and allows you to interact with the API.
+
+* requirements
+
+ - libwww-perl - this has the HTTP client functionality, commonly available.
+ - JSON - used to parse the responses from foursquare
+
+* configuration
+
+you'll want to make sure that you create the appropriate .4squatterrc file
+with the right username and password, etc. put into place.  
+
+* seeding the process
+
+in order to seed the process you should dig up the latitude and longitude of
+the area where you'd like to poke around.  then get the list of the venues
+that are nearby.
+
+
+ZenDoggy[sulrich]% foursquatter.pl --action=disp_venues --geolat=44.9116 \
+  --geolong=-93.329
+
+# vid   venue name              geolat  geolong
+#---------------------------------------------------------------------
+19098   Edina Grill     44.9116 -93.329
+993195  Bone Adventure  44.9116893      -93.3290071
+477665  Normandale College      44.9117382      -93.3290307
+358183  il vostro boutique      44.9118158      -93.3290075
+31532   Salut Bar Americain - Edina     44.9115 -93.3294
+1450348 Julia Bretey Salon      44.9119001      -93.3290077
+691615  Gyropolis       44.9114999      -93.3294
+1025052 James Loren Salon       44.9118 -93.3294
+493299  New China Wok   44.9120019      -93.329008
+52142   Premier Cheese Market   44.912  -93.329
+
+redirect the output to the file that you'd like to use to be the see for batch updates.
+
+
+ZenDoggy[sulrich]% foursquatter.pl --action=disp_venues  --geolat=44.9116 \
+ --geolong=-93.329 --vcount=30 > foo-venues.txt
+
+edit this file to add/remove the venues that you have in the mix.  note that
+the fields are tab delimited.  make sure you don't rip out the tabs when you
+save the file.
+
+batch file format: 
+vid <tab> name <tab> <geolat> <tab> <geolong> <newline>
+
+lines starting with a hash are ignored as comments.
+
+
+
+
+* single shot check-in
+
+for this, all you need to provide is the 
+
+ZenDoggy[sulrich]% foursquatter.pl --action=checkin  --vid=31532 
+checkin success: 31532 - <note this will be blank in the single shot mode>
+
+* batch check-in
+
+ZenDoggy[sulrich]% foursquatter.pl --action=checkin-batch
+checkin success: 19098 - Edina Grill
+
+... elided for brevity ...
+
+checkin success: 227616 - Starbucks
+checkin success: 701995 - Bella Salon and Spa
+

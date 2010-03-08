@@ -1,5 +1,13 @@
+# since this stores your foursquare password in clear text, make sure that you
+# put the appropriate permissions in place.  
+# foursquare account username - can also be the registered phone #
 esquare_user = "your_email@example.com"
+# foursquare account password
 esquare_pass = "secretpassword"
 esquare_host = "api.foursquare.com:80"
+# the user-agent 
 esquare_agent = "foursquatter 0.01"
+# if you're going to use the batch check-in functionality this is where we
+# would store the file containing the list of venues you'd like to update en
+# masse
 esquare_vfile = "/path_to_home/squatter-venues.txt"

@@ -1,4 +1,4 @@
-#!/opt/local/bin/perl -w
+#!/usr/bin/env perl 
 
 use LWP::UserAgent;
 use HTTP::Request::Common;
@@ -26,26 +26,6 @@ my %lwp_opts = (
 
 my $debug = 0;
 
-# valid actions
-# 
-# checkin-single [--vid]
-# checkin-batch  [--file=filename] 
-# disp_venues --geolat=s --geolong=s [--vcount=#]
-#
-#
-# misc. notes
-# 
-# to get a comprehensive list of venues near the specified coordinates
-# 
-# http://api.foursquare.com/v1/venues?geolat=44.914128&geolong=-93.329555&l=50
-# 
-# checking in:
-#
-#  % curl -d "vid=19098&geolat=44.9116&geolong=-93.329" -u \
-#   "username:password" "http://api.foursquare.com/v1/checkin" 
-# 
-#
-
 # parse the options and determine the action that we're going to take
 if ( $opts{action} eq '' ) {
 	&printUsage("no action specified");
@@ -53,7 +33,7 @@ if ( $opts{action} eq '' ) {
 } else { $opts{'action'} =~ tr/A-Z/a-z/; } 
 
 
-# parse the various CLI opts to make sure we have what we need
+# parse the various CLI opts
 if ($opts{action} eq "disp_venues") {
 	if ($opts{geolat} eq "" || $opts{geolong} eq "" ) {
 		&printUsage("missing coordinates (geolat or geolong)");
@@ -200,12 +180,38 @@ sub printUsage() {
 	print STDERR $message . "\n";
 
 	print STDERR <<EOF;
-usage: edina-square.pl
+usage: foursquatter.pl
 
 you need to set some options and variables. check the code to see what you
 need to setup here.  
 
+
+foursquare.pl --action=<action>
+
+valid actions: 
+	 
+checkin 
+ --vid=
+
+example: 
+   foursquatter.pl --action=checkin --vid=XXXX
+
+checkin-batch  
+ [--file=filename] 
+
+example: 
+   foursquatter.pl --action=checkin-batch
+
+disp_venues
+ --geolat=s --geolong=s [--vcount=#]
+
+example: 
+   foursquatter.pl --action=disp_venues --geolat=xx.xxx --geolong=yy.yyy \
+   --vcount=NN
+
+
 EOF
+
 	return;
 }
 
@@ -216,6 +222,7 @@ sub getConfig() {
 	my %config = ();
 	open(INFILE, $file) || die "error opening: $file";
 	while (<INFILE>) {	
+		next if /^#/;  # skip comments
 		my ($key, $value) = /(.*)\s+\=\s+[\"|\'](.*)[\"|\']/;
 		$key =~ s/ //;  # rip out any white space from the key
 		$config{$key} = $value;
