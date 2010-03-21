@@ -1,9 +1,9 @@
 * overview
 
-warning - this is an anti-social script.  i'm not recommending its use, but i
-can see the utility.  if you must have the mayorship of your local
-bar/coffeeshop, etc. you might find it useful.  this exercises a very little
-bit of the foursquare API and allows you to interact with the API.
+warning - this is an anti-social script.  i'm not recommending its
+use. however i can see the utility.  if you must have the mayorship of your
+local bar/coffeeshop, etc. you might find it useful.  this exercises a very
+little bit of the foursquare API and allows you to interact with the API.
 
 * requirements
 
@@ -20,7 +20,6 @@ with the right username and password, etc. put into place.
 in order to seed the process you should dig up the latitude and longitude of
 the area where you'd like to poke around.  then get the list of the venues
 that are nearby.
-
 
 ZenDoggy[sulrich]% foursquatter.pl --action=disp_venues --geolat=44.9116 \
   --geolong=-93.329
@@ -40,7 +39,6 @@ ZenDoggy[sulrich]% foursquatter.pl --action=disp_venues --geolat=44.9116 \
 
 redirect the output to the file that you'd like to use to be the see for batch updates.
 
-
 ZenDoggy[sulrich]% foursquatter.pl --action=disp_venues  --geolat=44.9116 \
  --geolong=-93.329 --vcount=30 > foo-venues.txt
 
@@ -52,9 +50,6 @@ batch file format:
 vid <tab> name <tab> <geolat> <tab> <geolong> <newline>
 
 lines starting with a hash are ignored as comments.
-
-
-
 
 * single shot check-in
 

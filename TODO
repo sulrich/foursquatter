@@ -1,0 +1,6 @@
+some items that could use some polish
+
+- use something other than a tab delimited format for the batch file.  these
+  are non-obvious and readily corrupted with some text editors.  change this
+  to something that's a reasonable compromise between human readable and
+  parse-able.
